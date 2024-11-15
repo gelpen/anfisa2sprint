@@ -130,3 +130,7 @@ dmypy.json
 
 #vscode
 .vscode/
+
+# Исключаем файлы SQLite 
+*.sqlite 
+*.sqlite3
