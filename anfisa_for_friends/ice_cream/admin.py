@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Category
+from .models import Topping
+from .models import Wrapper
+from .models import IceCream
 
-# Register your models here.
+
+admin.site.register(Category)
+admin.site.register(Topping)
+admin.site.register(Wrapper)
+admin.site.register(IceCream)
