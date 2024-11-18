@@ -6,11 +6,16 @@ from core.models import PublishedModel
 class Category(PublishedModel):
     title = models.CharField(max_length=256, verbose_name='Название')
     slug = models.SlugField(max_length=64, unique=True, verbose_name='Слаг')
-    output_order = models.PositiveSmallIntegerField(default=100, verbose_name='Порядок отображения')
+    output_order = models.PositiveSmallIntegerField(
+        default=100, verbose_name='Порядок отображения')
 
     class Meta:
         verbose_name = 'категория'
-        verbose_name_plural = 'Категории' 
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.title
+
 
 class Topping(PublishedModel):
     title = models.CharField(max_length=256, verbose_name='Название')
@@ -20,13 +25,21 @@ class Topping(PublishedModel):
         verbose_name = 'категория'
         verbose_name_plural = 'Топпинги'
 
+    def __str__(self):
+        return self.title 
+
 
 class Wrapper(PublishedModel):
-    title = models.CharField(max_length=256, verbose_name='Название')
+    title = models.CharField(max_length=256, verbose_name='Название', 
+                             help_text='Уникальное название обёртки, не более 256 символов')
 
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Обёртки'
+
+    def __str__(self):
+        return self.title 
+
 
 class IceCream(PublishedModel):
     title = models.CharField(max_length=256, verbose_name='Название')
@@ -52,3 +65,5 @@ class IceCream(PublishedModel):
         verbose_name = 'категория'
         verbose_name_plural = 'Мороженое'
 
+    def __str__(self):
+        return self.title 
