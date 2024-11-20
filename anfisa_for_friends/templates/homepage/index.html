@@ -9,6 +9,8 @@
     <li>ID: {{ ice_cream.id }}</li>
     <li>Название: {{ ice_cream.title }}</li>
     <li>Пояснение: {{ ice_cream.description }}</li>
+    <h3>{{ ice_cream.title }} ID: {{ ice_cream.id }}</h3>
+    <p>Категория: {{ ice_cream.category__title }}</p>
   </ul>
 {% endfor %} 
 {% endblock %}
