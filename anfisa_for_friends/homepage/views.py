@@ -3,23 +3,32 @@ from django.shortcuts import render
 
 from ice_cream.models import IceCream
 
+
 def index(request):
     template_name = 'homepage/index.html'
     # Возьмём нужное. А ненужное не возьмём:
     # ice_cream_list = IceCream.objects.values(
-        # 'id', 'title', 'description'
-        # Верни только те объекты, у которых в поле is_on_main указано True:
-        # ).filter(is_on_main=True).order_by('title')[1:4] 
-        # Исключи те объекты, у которых is_published=False:
-        #).exclude(is_published=False)
-        #).filter(is_published=True, is_on_main=True) # Два в одном!
-        # ).filter(
-        # Делаем запрос, объединяя два условия
-        # через Q-объекты и оператор AND:
-        # Q(is_published=True) & Q(is_on_main=True)
+    # 'id', 'title', 'description'
+    # Верни только те объекты, у которых в поле is_on_main указано True:
+    # ).filter(is_on_main=True).order_by('title')[1:4]
+    # Исключи те объекты, у которых is_published=False:
+    # ).exclude(is_published=False)
+    # ).filter(is_published=True, is_on_main=True) # Два в одном!
+    # ).filter(
+    # Делаем запрос, объединяя два условия
+    # через Q-объекты и оператор AND:
+    # Q(is_published=True) & Q(is_on_main=True)
     # )
-    ice_cream_list = IceCream.objects.values('id', 'title', 'category__title')
-# values(..., '<поле fk>__<поле в модели, связанной по fk>') 
+    # ice_cream_list = IceCream.objects.values('id', 'title', 'category__title')
+# values(..., '<поле fk>__<поле в модели, связанной по fk>')
+    ice_cream_list = IceCream.objects.values(
+        'id', 'title', 'price', 'description'
+    ).filter(
+        # Проверяем, что
+        is_published=True,  # Сорт разрешён к публикации;
+        is_on_main=True,  # Сорт разрешён к публикации на главной странице;
+        category__is_published=True  # Категория разрешена к публикации.
+    )
     context = {
         'ice_cream_list': ice_cream_list,
     }
@@ -63,7 +72,7 @@ def index(request):
 #     return render(request, template_name, context)
 
 
-####################### вариант решения из урока
+# вариант решения из урока
 
 # from django.db.models import Q
 # from django.shortcuts import render
